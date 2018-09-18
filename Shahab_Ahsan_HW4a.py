@@ -11,10 +11,13 @@ def gitHubAPI(ID):
         names.append(obj["name"])
         # print(obj["name"])
     # print(names)
+    commitCount = 0
     for repoName in names:
         commitURL = 'https://api.github.com/repos/' + ID + '/' + repoName + '/commits'
         # print(commitURL)
         r = requests.get(commitURL)
         commitsJSON = json.loads(r.text)
         print('Repo: ' + repoName + ' - Number of commits: ' + str(len(commitsJSON)))
-    return names
+        commitCount = commitCount + len(commitsJSON)
+
+    return len(names) + commitCount
